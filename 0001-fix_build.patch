@@ -1,0 +1,15 @@
+diff --git a/configure.ac b/configure.ac
+index 357cad0..de72b6d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -170,9 +170,9 @@ PKG_CHECK_MODULES([DROIDHEADERS], [android-headers])
+ AC_SUBST(DROIDHEADERS_CFLAGS)
+
+-PKG_CHECK_MODULES([DROIDUTIL], [libdroid-util >= 63])
++PKG_CHECK_MODULES([DROIDUTIL], [libdroid-util])
+ AC_SUBST(DROIDUTIL_CFLAGS)
+ AC_SUBST(DROIDUTIL_LIBS)
+
+ PKG_CHECK_MODULES([PASSTHROUGH_COMMON], [audiosystem-passthrough >= 1.0.0])
+ AC_SUBST(PASSTHROUGH_COMMON_CFLAGS)
+ AC_SUBST(PASSTHROUGH_COMMON_LIBS)
