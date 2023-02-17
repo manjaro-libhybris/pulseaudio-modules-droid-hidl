@@ -1,4 +1,6 @@
-#Maintainer Erik Inkinen <erik.inkinen@gmail.com>
+# Maintainer: Bardia Moshiri <fakeshell@bardia.tech>
+# Contributor Erik Inkinen <erik.inkinen@gmail.com>
+
 pkgname=pulseaudio-modules-droid-hidl
 provides=('pulseaduio-modules-droid-hidl')
 _pkgbase=pulseaudio-modules-droid-hidl
@@ -9,8 +11,8 @@ url="https://github.com/mer-hybris/pulseaudio-modules-droid-hidl"
 license=('GPL2')
 depends=('pulseaudio-module-keepalive' 'pulseaudio' 'pulseaudio-modules-droid' 'audiosystem-passthrough')
 makedepends=('git' 'pkgconfig' 'android-headers' 'automake' 'autoconf' 'libhybris' 'pulsecore-headers')
-source=("pulseaudio-modules-droid-hidl::git+https://github.com/mer-hybris/pulseaudio-modules-droid-hidl.git" "0001-fix_build.patch")
-md5sums=('SKIP' 'SKIP')
+source=("pulseaudio-modules-droid-hidl::git+https://github.com/mer-hybris/pulseaudio-modules-droid-hidl.git")
+md5sums=('SKIP')
 options=(debug !strip)
 
 pkgver() {
@@ -18,23 +20,14 @@ pkgver() {
   echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
-prepare() {
-  cd "${srcdir}/${_pkgbase}"
-  patch -p1 --input="${srcdir}/0001-fix_build.patch"
-}
-
 build() {
   cd "${srcdir}/${_pkgbase}"
-  echo 15.0 > .tarball-version
-  autoreconf -vfi
-  ./configure --disable-static \
-    --prefix=/usr --mandir=/usr/share/man --libdir=/usr/lib \
-    --sysconfdir=/etc --localstatedir=/var --sbindir=/usr/bin --with-module-dir=/usr/lib/pulse-15.0/modules/
-  make KEEP_SYMBOLS=1 all
+  rm -rf build
+  arch-meson  build
+  ninja -C build
 }
 
 package() {
   cd "${srcdir}/${_pkgbase}"
-  make DESTDIR="$pkgdir" install
+  DESTDIR="${pkgdir}" ninja -C build install
 }
-
