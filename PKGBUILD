@@ -12,6 +12,7 @@ license=('GPL2')
 depends=('pulseaudio-hybris' 'audiosystem-passthrough')
 makedepends=('git' 'pkgconfig' 'android-headers' 'automake' 'autoconf' 'libhybris')
 source=("pulseaudio-modules-droid-hidl::git+https://github.com/mer-hybris/pulseaudio-modules-droid-hidl.git")
+provides=('pulseaudio-module-keepalive')
 md5sums=('SKIP')
 options=(debug !strip)
 
